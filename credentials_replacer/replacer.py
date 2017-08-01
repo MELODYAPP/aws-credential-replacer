@@ -3,7 +3,7 @@ import os
 import sys
 
 import click
-from credstash import getSecret, listSecrets
+from credstash import getSecret, listSecrets, getAllSecrets
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
 
 
@@ -30,10 +30,7 @@ def render_with_credentials(file, region, context, strict=False):
     env = Environment(**env_args)
     template = env.get_template(os.path.basename(file))
 
-    secrets = {
-        secret['name']: getSecret(
-            secret['name'], region=region, context=context
-        ) for secret in listSecrets(region=region)}
+    secrets = getAllSecrets(region=region, context=context)
     return template.render(**secrets)
 
 
