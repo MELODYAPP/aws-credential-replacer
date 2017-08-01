@@ -41,8 +41,7 @@ def parse_key_value(ctx, param, value):
 @click.command()
 @click.option('-r', default='us-east-1', help='DynamoDB region')
 @click.argument('file', nargs=1)
-@click.argument('context', nargs=-1, callback=parse_key_value, 
-                help='Encryption context key/value pairs to pass as `key=value`')
+@click.argument('context', nargs=-1, callback=parse_key_value)
 def main(r, file, context=None):
     """Output rendered template
 
